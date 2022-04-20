@@ -10,7 +10,7 @@ public class AnimationFrame {
 
     public void setUpGUI() {
         JFrame frame = new JFrame();
-        frame.setTitle("Midterm Project - Crisologo, Joaquin Inigo - 211655");
+        frame.setTitle("Fiwe Twail :3");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         canvas = new AnimationCanvas(1366, 768);

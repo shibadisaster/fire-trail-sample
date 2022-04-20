@@ -15,8 +15,8 @@ public class Joint implements DrawingObject {
     private Color color;
 
     public Joint(double x, double y) {
-        xpos = x - size / 2;
-        ypos = y - size / 2;
+        xpos = x;
+        ypos = y;
 
         xvel = Math.floor(Math.random() * randomness * 2) - randomness;
         yvel = Math.floor(Math.random() * randomness * 2) - randomness;
@@ -24,16 +24,26 @@ public class Joint implements DrawingObject {
         r = (int) (255 + Math.floor(Math.random() * 0));
         g = (int) (64 + Math.floor(Math.random() * 191));
         b = (int) (0 + Math.floor(Math.random() * 64));
-        color = new Color(r, g, b);
     }
 
     public void draw(Graphics2D g2d) {
-        Ellipse2D.Double joint = new Ellipse2D.Double(xpos, ypos, size, size);
-        g2d.setColor(color);
-
         RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHints(rh);
-        g2d.fill(joint);
+
+        Ellipse2D.Double joint1 = new Ellipse2D.Double(xpos - size * 1.5, ypos - size * 1.5, size * 3, size * 3);
+        color = new Color(r, g, b, 30);
+        g2d.setColor(color);
+        g2d.fill(joint1);
+
+        Ellipse2D.Double joint2 = new Ellipse2D.Double(xpos - size, ypos - size, size * 2, size * 2);
+        color = new Color(r, g, b, 80);
+        g2d.setColor(color);
+        g2d.fill(joint2);
+
+        Ellipse2D.Double joint3 = new Ellipse2D.Double(xpos - size / 2, ypos - size / 2, size, size);
+        color = new Color(r, g, b, 255);
+        g2d.setColor(color);
+        g2d.fill(joint3);
     }
 
     public void moveTo(double x, double y) {
