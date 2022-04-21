@@ -27,8 +27,8 @@ public class AnimationCanvas extends JComponent {
     }
 
     public void setUpObjects() {
-        for (int i = 0; i < 100; i++) {
-            trail.add(new Joint(Math.floor(Math.random() * width), Math.floor(Math.random() * height)));
+        for (int i = 0; i < 500; i++) {
+            trail.add(new Joint(width / 2, height / 2));
         }
     }
 

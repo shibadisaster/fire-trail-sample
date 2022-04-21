@@ -12,6 +12,9 @@ public class Joint implements DrawingObject {
     private int g;
     private int b;
 
+    private int temperature;
+    private int adjustedTemperature;
+
     private Color color;
 
     public Joint(double x, double y) {
@@ -20,59 +23,56 @@ public class Joint implements DrawingObject {
 
         xvel = Math.floor(Math.random() * randomness * 2) - randomness;
         yvel = Math.floor(Math.random() * randomness * 2) - randomness;
-        
-        r = (int) (255 + Math.floor(Math.random() * 0));
-        g = (int) (64 + Math.floor(Math.random() * 191));
-        b = (int) (0 + Math.floor(Math.random() * 64));
     }
 
     public void draw(Graphics2D g2d) {
         RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHints(rh);
 
-        Ellipse2D.Double joint1 = new Ellipse2D.Double(xpos - size * 1.5, ypos - size * 1.5, size * 3, size * 3);
-        color = new Color(r, g, b, 30);
+        //alpha values based on inverse-square law
+
+        Ellipse2D.Double joint4 = new Ellipse2D.Double(xpos - size * 2, ypos - size * 2, size * 4, size * 4);
+        color = new Color(r, g, b, 16);
         g2d.setColor(color);
-        g2d.fill(joint1);
+        g2d.fill(joint4);
+
+        Ellipse2D.Double joint3 = new Ellipse2D.Double(xpos - size * 1.5, ypos - size * 1.5, size * 3, size * 3);
+        color = new Color(r, g, b, 28);
+        g2d.setColor(color);
+        g2d.fill(joint3);
 
         Ellipse2D.Double joint2 = new Ellipse2D.Double(xpos - size, ypos - size, size * 2, size * 2);
-        color = new Color(r, g, b, 80);
+        color = new Color(r, g, b, 64);
         g2d.setColor(color);
         g2d.fill(joint2);
 
-        Ellipse2D.Double joint3 = new Ellipse2D.Double(xpos - size / 2, ypos - size / 2, size, size);
+        Ellipse2D.Double joint1 = new Ellipse2D.Double(xpos - size / 2, ypos - size / 2, size, size);
         color = new Color(r, g, b, 255);
         g2d.setColor(color);
-        g2d.fill(joint3);
+        g2d.fill(joint1);
+
+        // g2d.drawString( "" + temperature, (int) xpos,  (int) ypos - 10);
     }
 
     public void moveTo(double x, double y) {
         //xvel = (x - (size / 2)) - xpos + (Math.floor(Math.random() * randomness * 2) - randomness);
         //yvel = (y - (size / 2)) - ypos + (Math.floor(Math.random() * randomness * 2) - randomness);
         if (xpos > 1366) {
-            xpos = 0;
-
             xpos = 683;
             ypos = 384;
         }
 
         if (ypos > 768) {
-            ypos = 0;
-
             xpos = 683;
             ypos = 384;
         }
 
         if (xpos < 0) {
-            xpos = 1366;
-
             xpos = 683;
             ypos = 384;
         }
 
         if (ypos < 0) {
-            ypos = 768;
-
             xpos = 683;
             ypos = 384;
         }
@@ -89,6 +89,55 @@ public class Joint implements DrawingObject {
 
         xpos = xpos + xvel;
         ypos = ypos + yvel;
+
+
+        //heat coloring algorithm from https://tannerhelland.com/2012/09/18/convert-temperature-rgb-algorithm-code.html
+        temperature = (int) (200 * Math.sqrt(xvel * xvel + yvel * yvel) + Math.random() * 1000);
+        adjustedTemperature = (int) temperature / 100;
+
+        // r = (int) (255 + Math.floor(Math.random() * 0));
+        // g = (int) (64 + Math.floor(Math.random() * 191));
+        // b = (int) (0 + Math.floor(Math.random() * 64));
+
+        if (adjustedTemperature <= 66) {
+            r = 255;
+        }
+        else {
+            r = adjustedTemperature - 60;
+            r = (int) (329.698727446 * Math.pow(r, -0.1332047592));
+            if (r < 0) r = 0;
+            if (r > 255) r = 255;
+        }
+
+        if (adjustedTemperature <= 66) {
+            g = adjustedTemperature;
+            g = (int) (99.4708025861 * Math.log(g) - 161.1195681661);
+            if (g < 0) g = 0;
+            if (g > 255) g = 255;
+        }
+        else {
+            g = adjustedTemperature - 60;
+	        g = (int) (288.1221695283 * Math.pow(g, -0.0755148492));
+	        if (g < 0) g = 0;
+            if (g > 255) g = 255;
+        }
+
+        if (adjustedTemperature >= 66) {
+            b = 255;
+        }
+        else {
+            if (adjustedTemperature <= 19) {
+                b = 0;
+            }
+            else {
+                b = adjustedTemperature - 10;
+                b = (int) (138.5177312231 * Math.log(b) - 305.0447927307);
+                if (b < 0) b = 0;
+                if (b > 255) b = 255;
+            }
+        }
+
+        //whats this mess at least it looks cool
     }
 
     public double getX() {
