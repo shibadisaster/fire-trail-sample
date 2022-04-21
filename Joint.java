@@ -122,6 +122,17 @@ public class Joint implements DrawingObject {
             }
         }
 
+        // r = (int) (-0.000042697360013586407889198127 * Math.pow(adjustedTemperature, 3) + -0.004423346137566552642439443588 * Math.pow(adjustedTemperature, 2) + 2.648790949059564692191770518548 * adjustedTemperature + 22.312567277335521254144623526372);
+        // g = (int) (-0.000038180229016251326717382858 * Math.pow(adjustedTemperature, 3) + 0.019859522701747105849490182550 * Math.pow(adjustedTemperature, 2) + -1.254243382842633591778280788276 * adjustedTemperature + 14.198028172137270530583919025958);
+        // b = (int) (0.000126167682228283279397343386 * Math.pow(adjustedTemperature, 3) + -0.041747653068680251609023912351 * Math.pow(adjustedTemperature, 2) + 2.739377592537613370637927800999 * adjustedTemperature + 131.756384461319896672648610547185);
+
+        // if (r < 0) { r = 0; }
+        // if (r > 255) { r = 255; }
+        // if (g < 0) { g = 0; }
+        // if (g > 255) { g = 255; }
+        // if (b < 0) { b = 0; }
+        // if (b > 255) { b = 255; }
+
         //whats this mess at least it looks cool
     }
 
