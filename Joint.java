@@ -79,59 +79,60 @@ public class Joint implements DrawingObject {
         //heat coloring algorithm from https://tannerhelland.com/2012/09/18/convert-temperature-rgb-algorithm-code.html
         temperature = (int) (200 * Math.sqrt(xvel * xvel + yvel * yvel) + Math.random() * 1000);
         adjustedTemperature = (int) temperature / 100;
+        if (adjustedTemperature > 150) { adjustedTemperature = 150; }
 
         // r = (int) (255 + Math.floor(Math.random() * 0));
         // g = (int) (64 + Math.floor(Math.random() * 191));
         // b = (int) (0 + Math.floor(Math.random() * 64));
 
-        if (adjustedTemperature <= 66) {
-            r = 255;
-        }
-        else {
-            r = adjustedTemperature - 60;
-            r = (int) (329.698727446 * Math.pow(r, -0.1332047592));
-            if (r < 0) r = 0;
-            if (r > 255) r = 255;
-        }
+        // if (adjustedTemperature <= 66) {
+        //     r = 255;
+        // }
+        // else {
+        //     r = adjustedTemperature - 60;
+        //     r = (int) (329.698727446 * Math.pow(r, -0.1332047592));
+        //     if (r < 0) r = 0;
+        //     if (r > 255) r = 255;
+        // }
 
-        if (adjustedTemperature <= 66) {
-            g = adjustedTemperature;
-            g = (int) (99.4708025861 * Math.log(g) - 161.1195681661);
-            if (g < 0) g = 0;
-            if (g > 255) g = 255;
-        }
-        else {
-            g = adjustedTemperature - 60;
-	        g = (int) (288.1221695283 * Math.pow(g, -0.0755148492));
-	        if (g < 0) g = 0;
-            if (g > 255) g = 255;
-        }
+        // if (adjustedTemperature <= 66) {
+        //     g = adjustedTemperature;
+        //     g = (int) (99.4708025861 * Math.log(g) - 161.1195681661);
+        //     if (g < 0) g = 0;
+        //     if (g > 255) g = 255;
+        // }
+        // else {
+        //     g = adjustedTemperature - 60;
+	    //     g = (int) (288.1221695283 * Math.pow(g, -0.0755148492));
+	    //     if (g < 0) g = 0;
+        //     if (g > 255) g = 255;
+        // }
 
-        if (adjustedTemperature >= 66) {
-            b = 255;
-        }
-        else {
-            if (adjustedTemperature <= 19) {
-                b = 0;
-            }
-            else {
-                b = adjustedTemperature - 10;
-                b = (int) (138.5177312231 * Math.log(b) - 305.0447927307);
-                if (b < 0) b = 0;
-                if (b > 255) b = 255;
-            }
-        }
+        // if (adjustedTemperature >= 66) {
+        //     b = 255;
+        // }
+        // else {
+        //     if (adjustedTemperature <= 19) {
+        //         b = 0;
+        //     }
+        //     else {
+        //         b = adjustedTemperature - 10;
+        //         b = (int) (138.5177312231 * Math.log(b) - 305.0447927307);
+        //         if (b < 0) b = 0;
+        //         if (b > 255) b = 255;
+        //     }
+        // }
 
-        // r = (int) (-0.000042697360013586407889198127 * Math.pow(adjustedTemperature, 3) + -0.004423346137566552642439443588 * Math.pow(adjustedTemperature, 2) + 2.648790949059564692191770518548 * adjustedTemperature + 22.312567277335521254144623526372);
-        // g = (int) (-0.000038180229016251326717382858 * Math.pow(adjustedTemperature, 3) + 0.019859522701747105849490182550 * Math.pow(adjustedTemperature, 2) + -1.254243382842633591778280788276 * adjustedTemperature + 14.198028172137270530583919025958);
-        // b = (int) (0.000126167682228283279397343386 * Math.pow(adjustedTemperature, 3) + -0.041747653068680251609023912351 * Math.pow(adjustedTemperature, 2) + 2.739377592537613370637927800999 * adjustedTemperature + 131.756384461319896672648610547185);
+        r = (int) (-0.000042697360013586407889198127 * Math.pow(adjustedTemperature, 3) + -0.004423346137566552642439443588 * Math.pow(adjustedTemperature, 2) + 2.648790949059564692191770518548 * adjustedTemperature + 22.312567277335521254144623526372);
+        g = (int) (-0.000038180229016251326717382858 * Math.pow(adjustedTemperature, 3) + 0.019859522701747105849490182550 * Math.pow(adjustedTemperature, 2) + -1.254243382842633591778280788276 * adjustedTemperature + 14.198028172137270530583919025958);
+        b = (int) (0.000126167682228283279397343386 * Math.pow(adjustedTemperature, 3) + -0.041747653068680251609023912351 * Math.pow(adjustedTemperature, 2) + 2.739377592537613370637927800999 * adjustedTemperature + 131.756384461319896672648610547185);
 
-        // if (r < 0) { r = 0; }
-        // if (r > 255) { r = 255; }
-        // if (g < 0) { g = 0; }
-        // if (g > 255) { g = 255; }
-        // if (b < 0) { b = 0; }
-        // if (b > 255) { b = 255; }
+        if (r < 0) { r = 0; }
+        if (r > 255) { r = 255; }
+        if (g < 0) { g = 0; }
+        if (g > 255) { g = 255; }
+        if (b < 0) { b = 0; }
+        if (b > 255) { b = 255; }
 
         //whats this mess at least it looks cool
     }
