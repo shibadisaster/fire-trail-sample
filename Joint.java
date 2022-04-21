@@ -57,24 +57,9 @@ public class Joint implements DrawingObject {
     public void moveTo(double x, double y) {
         //xvel = (x - (size / 2)) - xpos + (Math.floor(Math.random() * randomness * 2) - randomness);
         //yvel = (y - (size / 2)) - ypos + (Math.floor(Math.random() * randomness * 2) - randomness);
-        if (xpos > 1366) {
-            xpos = 683;
-            ypos = 384;
-        }
-
-        if (ypos > 768) {
-            xpos = 683;
-            ypos = 384;
-        }
-
-        if (xpos < 0) {
-            xpos = 683;
-            ypos = 384;
-        }
-
-        if (ypos < 0) {
-            xpos = 683;
-            ypos = 384;
+        if (xpos > 1366 || ypos > 768 || xpos < 0 || ypos < 0) {
+            xpos = 683 + Math.random() * 20 - 10;
+            ypos = 384 + Math.random() * 20 - 10;
         }
 
         xvel += Math.random() * 1 - 0.5;
